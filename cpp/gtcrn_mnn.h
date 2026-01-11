@@ -54,12 +54,8 @@ private:
     void export_wav(const std::string& Filename, const std::vector<float>& Data, unsigned SampleRate);
 
     void init_mnn_model(const char* ModelPath) {
-        // 创建 Executor
         executor = MNN::Express::Executor::newExecutor(MNN_FORWARD_CPU, backend_config, 1);
-        // 绑定Executor，在创建/销毁/使用Module或进行表达式计算之前都需要绑定
         MNN::Express::ExecutorScope _s(executor);
-
-        //创建 Module
         module.reset(MNN::Express::Module::load(input_node_names, output_node_names, ModelPath));
     };
 };
